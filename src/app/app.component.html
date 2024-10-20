@@ -1,3 +1,31 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- Verificar si el usuario está logueado -->
+  <ng-container *ngIf="isLoggedIn()">
+    <!-- Definir el tab -->
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="home" routerLink="home">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-tab-button>
+  
+        <ion-tab-button tab="product" routerLink="product">
+          <ion-icon name="pricetag"></ion-icon>
+          <ion-label>Producto</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="logout" (click)="logout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>Logout</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ng-container>
+
+  <!-- Si no está logueado, mostrar el router-outlet para páginas como login -->
+  <div class="app-container">
+    <div id="main-content" class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </ion-app>

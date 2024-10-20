@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    // Verificar si el usuario está logueado al entrar en la vista
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      this.router.navigate(['/login']); // Redirigir si no está logueado
+    }
+  }
 
 }

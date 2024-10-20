@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ edit ? 'Editar Producto' : 'Agregar Producto' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form [formGroup]="registrarForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input formControlName="descripcion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Categoría</ion-label>
+      <ion-select formControlName="idcategoria" placeholder="Selecciona una categoría">
+        <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.idcategoria">
+          {{ categoria.descripcion }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input formControlName="precio" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cantidad</ion-label>
+      <ion-input formControlName="cantidad" type="number"></ion-input>
+    </ion-item>
+
+    <ion-button [disabled]="!registrarForm.valid" type="submit" expand="block" color="primary" class="ion-margin-top">
+      {{ edit ? 'Actualizar' : 'Guardar' }}
+    </ion-button>
+  </form>
+</ion-content>

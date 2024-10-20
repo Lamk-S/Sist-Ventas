@@ -1,0 +1,40 @@
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;  // Ajuste para ocupar el 80% de la pantalla y estar centrado verticalmente
+    padding: 20px;  // Añade un pequeño padding para evitar que esté pegado a los bordes
+}
+  
+.error-message {
+    color: red;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+  
+.form-input {
+    position: relative;
+    margin-bottom: 15px;
+  
+    ion-icon {
+        position: absolute;
+        top: 30px;  // Ajuste de posición del ícono
+        z-index: 2;
+        font-size: 1.5rem;  // Tamaño del ícono más grande para mayor claridad
+        left: 10px;
+        color: #7b7b7b;
+    }
+  
+    ion-label {
+        margin-left: 40px;  // Espacio suficiente para el ícono
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+  
+    ion-input {
+        --padding-start: 45px;  // Espacio entre el ícono y el input
+        --padding-top: 20px;  // Más espacio arriba
+        color: #555;  // Color del texto del input
+    }
+}  
