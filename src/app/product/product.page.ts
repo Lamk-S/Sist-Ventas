@@ -10,7 +10,9 @@ import { AgregarproductoPage } from '../agregarproducto/agregarproducto.page';
   styleUrls: ['./product.page.scss'],
 })
 export class ProductPage implements OnInit {
-  productos: ProductoModel[] | undefined;
+  productos: ProductoModel[] = [];
+  productosFiltrados: ProductoModel[] = [];  // Lista para los productos filtrados
+  terminoBusqueda: string = '';  // Término de búsqueda
 
   constructor(
     private service: ProductosService,
@@ -24,8 +26,9 @@ export class ProductPage implements OnInit {
 
   // Función para cargar los productos desde el servicio
   cargarProductos() {
-    this.service.ObtenerTodos().subscribe((response) => {
-      this.productos = response;
+    this.service.ObtenerTodos().subscribe((productos) => {
+      this.productos = productos;
+      this.productosFiltrados = this.productos;  // Inicialmente mostrar todos los productos
     });
   }
 
@@ -101,5 +104,17 @@ export class ProductPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  buscarProducto() {
+    if (this.terminoBusqueda.trim() === '') {
+      // Si el término está vacío, mostramos todos los productos
+      this.productosFiltrados = this.productos;
+    } else {
+      // Filtrar productos por la descripción
+      this.productosFiltrados = this.productos.filter(producto =>
+        producto.descripcion.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      );
+    }
   }
 }

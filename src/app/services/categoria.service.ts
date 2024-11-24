@@ -9,7 +9,23 @@ export class CategoriaService {
   private url='http://localhost:8000/api/categoria';
   constructor(private http:HttpClient) { }
   
-  ObtenerTodos(){
-    return this.http.get<[CategoriaModel]>(this.url);
+  // Obtener todas las categorías
+  obtenerTodas(){
+    return this.http.get<CategoriaModel[]>(this.url);
+  }
+
+  // Agregar nueva categoría
+  agregarCategoria(categoria: CategoriaModel) {
+    return this.http.post<CategoriaModel>(this.url, categoria);
+  }
+
+  // Actualizar una categoría existente
+  actualizarCategoria(id: number, categoria: CategoriaModel) {
+    return this.http.put<CategoriaModel>(`${this.url}/${id}`, categoria);
+  }
+
+  // Eliminar una categoría
+  eliminarCategoria(id: number){
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 }

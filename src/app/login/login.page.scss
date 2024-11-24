@@ -37,4 +37,40 @@
         --padding-top: 20px;  // Más espacio arriba
         color: #555;  // Color del texto del input
     }
-}  
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ocupa toda la pantalla */
+}
+
+.flex-center {
+  flex: 1; /* Hace que el contenido crezca para ocupar el espacio disponible */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content {
+  --padding-bottom: 56px; /* Deja espacio suficiente para el footer */
+}
+
+ion-footer {
+  flex-shrink: 0; /* Evita que el footer se "comprima" o se esconda */
+}
+
+// Estilos para el contenedor de registro
+.register-text {
+  display: flex;
+  flex-direction: column;  // Alinea el texto y el botón en columna
+  align-items: center;     // Centra los elementos horizontalmente
+  margin-top: 20px;       // Espacio entre el formulario y el texto de registro
+
+  .register-message {
+    font-size: 1rem;       // Tamaño del texto
+    color: #666;           // Color gris para el texto
+    margin-bottom: 10px;   // Espacio entre el texto y el botón
+    text-align: center;     // Centra el texto
+  }
+}

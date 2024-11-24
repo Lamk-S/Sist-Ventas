@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Productos</ion-title>  <!-- Corrección en el título -->
+    <ion-title>Productos</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,17 +15,20 @@
   </ion-header>
 
   <div id="container" class="ion-padding">
-    <ion-list>
-      <ion-item>
-        <ion-buttons (click)="Agregar()" slot="end">
-          <ion-button color="primary" fill="outline">
-            Nuevo Registro
-            <ion-icon name="add-outline"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
+    <!-- Sección de búsqueda y agregar producto -->
+    <ion-item>
+      <!-- Al escribir o hacer clic en el botón, se ejecuta buscarProducto() -->
+      <ion-input [(ngModel)]="terminoBusqueda" (ionInput)="buscarProducto()" placeholder="Buscar producto..."></ion-input>
+      <ion-button (click)="buscarProducto()">Buscar</ion-button>
+      <ion-button color="primary" fill="outline" (click)="Agregar()">
+        Nuevo Registro
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
 
-      <ion-item-sliding *ngFor="let producto of productos">
+    <!-- Lista de productos filtrados -->
+    <ion-list>
+      <ion-item-sliding *ngFor="let producto of productosFiltrados">
         <ion-item>
           <ion-label>
             <h3 class="title">{{ producto.descripcion }}</h3>

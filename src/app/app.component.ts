@@ -1,22 +1,28 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
-  constructor(private router: Router) {}
+export class AppComponent implements OnInit {
 
-  // Verificar si el usuario está logueado
-  isLoggedIn() {
-    return localStorage.getItem('loggedIn') === 'true';
+  loggedIn: boolean = false;
+
+  constructor(private authService: AuthService,
+    private navCtrl: NavController) {}
+
+  ngOnInit() {
+    // Suscribirse al estado de login
+    this.authService.isLoggedIn().subscribe(isLoggedIn => {
+      this.loggedIn = isLoggedIn;
+    });
   }
 
-  // Opción para cerrar sesión
   logout() {
-    localStorage.removeItem('loggedIn');
-    this.router.navigate(['/login'], { replaceUrl: true });
+    this.authService.logout();
+    this.navCtrl.navigateRoot('login');
   }
 }

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ categoria ? 'Editar Categoría' : 'Agregar Categoría' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="categoriaForm" (ngSubmit)="guardarCategoria()">
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input formControlName="descripcion"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="!categoriaForm.valid">
+      {{ categoria ? 'Actualizar' : 'Guardar' }}
+    </ion-button>
+  </form>
+</ion-content>

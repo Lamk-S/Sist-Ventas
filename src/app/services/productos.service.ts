@@ -21,4 +21,8 @@ export class ProductosService {
   Eliminar(idproducto: number) {
     return this.http.delete(`${this.url}/${idproducto}`);
   }
+
+  obtenerProductosPorCategoria(){
+    return this.http.get(`${this.url}/productos-por-categoria`);
+  }
 }  

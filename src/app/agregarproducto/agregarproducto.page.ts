@@ -53,7 +53,7 @@ export class AgregarproductoPage implements OnInit {
 
   // Cargar categorías desde el servicio
   cargarCategorias() {
-    this.serviceCategoria.ObtenerTodos().subscribe(
+    this.serviceCategoria.obtenerTodas().subscribe(
       (response) => {
         this.categorias = response;
       }

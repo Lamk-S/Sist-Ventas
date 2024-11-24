@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9*-]+.[a-zAZ]{2,4}$")]),
+      email: new FormControl('', [Validators.required, Validators.email]), // Mejorar la validación de email
       password: new FormControl('', [Validators.required])
     });
   }
@@ -48,39 +48,50 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateForward('register');
   }
 
+  // Función para mostrar alertas
+  async mostrarAlerta(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['Aceptar']
+    });
+    await alert.present();
+  }
+
+  // Método para iniciar sesión
   async iniciar() {
-    let email = this.formLogin.value.email;
+    const email = this.formLogin.value.email;
+    const password = this.formLogin.value.password;
+
+    // Verificar el email
     this.authService.verificarEmail(email!).subscribe(async response => {
       if (response.data) {
-        let password = this.formLogin.value.password;
+        // Verificar la clave
         this.authService.verificarClave(email!, password!).subscribe(async resp => {
           if (resp.data) {
-            // Guardar el estado de sesión
-            localStorage.setItem('loggedIn', 'true');
+            // Llamar a login en el servicio de autenticación
+            this.authService.login();
             
-            // Forzar la redirección y detectar cambios
+            // Redirigir a /home usando NgZone
             this.ngZone.run(() => {
-              this.router.navigate(['/home'], { replaceUrl: true });
+              this.navCtrl.navigateRoot('home');
             });
+
           } else {
-            const alert = await this.alertController.create({
-              header: 'Error',
-              message: 'Contraseña incorrecta',
-              buttons: ['Aceptar']
-            });
-            await alert.present();
+            // Mostrar alerta de contraseña incorrecta
+            this.mostrarAlerta('Error', 'Contraseña incorrecta');
           }
+        }, (error) => {
+          console.log('Error verificando clave:', error);
+          this.mostrarAlerta('Error', 'Error en la verificación de la clave.');
         });
       } else {
-        const alert = await this.alertController.create({
-          header: 'Error',
-          message: 'Correo no válido',
-          buttons: ['Aceptar']
-        });
-        await alert.present();
+        // Mostrar alerta de email incorrecto
+        this.mostrarAlerta('Error', 'Correo no válido');
       }
     }, (error) => {
-      console.log(error);
+      console.log('Error verificando email:', error);
+      this.mostrarAlerta('Error', 'Error en la verificación del correo.');
     });
   }
 }

@@ -5,5 +5,6 @@ export interface ProductoModel {
     descripcion: string;
     precio:number;
     cantidad:number;
+    foto:any;
     categoria: CategoriaModel;
 }
